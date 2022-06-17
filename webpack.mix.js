@@ -11,7 +11,22 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix.webpackConfig(webpack => {
+    return {
+        plugins: [
+            new webpack.NormalModuleReplacementPlugin(/node:/, (resource) => {
+                const mod = resource.request.replace(/^node:/, "");
+                switch (mod) {
+                    case "buffer":
+                        resource.request = "buffer";
+                        break;
+                    case "stream":
+                        resource.request = "readable-stream";
+                        break;
+                    default:
+                        throw new Error(`Not found ${mod}`);
+                }
+            })
+        ]
+    }
+}).js('resources/js/app.js', 'public/js').react().postCss('resources/css/app.css', 'public/css', []);
