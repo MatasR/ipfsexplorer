@@ -12,7 +12,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        // <Route path="/ipfs/:cid" element={<File />} />
+        <Route path="/ipfs/:cid" element={<File />} />
       </Routes>
     </Router>
   );

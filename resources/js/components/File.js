@@ -11,6 +11,11 @@ function File() {
   const CID = useParams().cid;
 
   useEffect(() => {
+    // Send hash to backend
+    axios.post('/api/view', {
+      hash: CID
+    });
+
     previewFile();
   }, []);
 

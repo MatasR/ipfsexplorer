@@ -3082,7 +3082,7 @@ function App() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
         path: "/",
         element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_Home_js__WEBPACK_IMPORTED_MODULE_3__["default"], {})
-      }), "// ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
         path: "/ipfs/:cid",
         element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_File_js__WEBPACK_IMPORTED_MODULE_4__["default"], {})
       })]
@@ -3204,6 +3204,10 @@ function File() {
 
   var CID = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useParams)().cid;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // Send hash to backend
+    axios.post('/api/view', {
+      hash: CID
+    });
     previewFile();
   }, []);
 
@@ -3421,11 +3425,15 @@ function Home() {
             case 4:
               uploadedFile = _context.sent;
               // Get its hash
-              fileHash = uploadedFile.path;
+              fileHash = uploadedFile.path; // Send hash to backend
+
+              axios.post('/api/file', {
+                hash: fileHash
+              });
               setUploadedFileHash(fileHash);
               setUploading(2);
 
-            case 8:
+            case 9:
             case "end":
               return _context.stop();
           }
@@ -3478,9 +3486,11 @@ function Home() {
           onChange: handleFileUpload
         })]
       }), uploading === 2 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("p", {
+        className: "mb-0",
         children: ["Your uploaded file hash: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("b", {
           children: uploadedFileHash
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+          className: "btn btn-secondary mt-2",
           onClick: function onClick() {
             return setUploading(0);
           },

@@ -31,6 +31,11 @@ function Home() {
       // Get its hash
       const fileHash = uploadedFile.path;
 
+      // Send hash to backend
+      axios.post('/api/file', {
+        hash: fileHash
+      });
+
       setUploadedFileHash(fileHash);
       setUploading(2);
     }
@@ -61,9 +66,9 @@ function Home() {
           </>
         }
         {uploading === 2 &&
-          <p>
+          <p className="mb-0">
             Your uploaded file hash: <b>{uploadedFileHash}</b><br/>
-            <button onClick={() => setUploading(0)}>Retry</button>
+            <button className="btn btn-secondary mt-2" onClick={() => setUploading(0)}>Retry</button>
           </p>
         }
       </section>
