@@ -1,6 +1,8 @@
 version: "3.7"
+
 services:
-  php:
+
+  app:
     build:
       args:
         user: matas
@@ -8,13 +10,14 @@ services:
       context: ./
       dockerfile: Dockerfile
     image: ipfsexplorer
-    container_name: ipfsexplorer-php
+    container_name: ipfsexplorer-app
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
       - ./:/var/www
     networks:
       - ipfsexplorer
+
   mysql:
     image: mysql:8.0
     container_name: ipfsexplorer-db
@@ -28,17 +31,19 @@ services:
       SERVICE_NAME: mysql
     networks:
       - ipfsexplorer
+
   nginx:
-    image: nginx:stable-alpine
+    image: nginx:alpine
     container_name: ipfsexplorer-nginx
     restart: unless-stopped
     ports:
-      - 8080:80
+      - 8000:80
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d
     networks:
       - ipfsexplorer
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: unless-stopped
@@ -52,15 +57,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     networks:
       - ipfsexplorer
-  npm:
-    image: node:16
-    container_name: ipfsexplorer-npm
-    working_dir: /var/www/
-    entrypoint: ["npm"]
-    volumes:
-      - ./:/var/www
-    networks:
-      - ipfsexplorer
+
 networks:
   ipfsexplorer:
     driver: bridge
