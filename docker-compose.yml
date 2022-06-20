@@ -41,13 +41,17 @@ services:
       - ./docker-compose/nginx:/etc/nginx/conf.d
     networks:
       - ipfsexplorer
-  npm:
-    image: node:16.13
-    container_name: ipfsexplorer-node
-    volumes:
-      - ./:/var/www
-    working_dir: /var/www
-    entrypoint: ['npm']
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    container_name: ipfsexplorer-phpmyadmin
+    depends_on:
+      - db
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     networks:
       - ipfsexplorer
 networks:
