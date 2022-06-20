@@ -31,16 +31,23 @@ services:
     networks:
       - ipfsexplorer
   nginx:
-    image: nginx:1.17-alpine
+    image: nginx:stable-alpine
     container_name: ipfsexplorer-nginx
     restart: unless-stopped
     ports:
-      - 80:80
+      - 8080:80
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d
     networks:
       - ipfsexplorer
+  npm:
+    image: node:16.13
+    container_name: ipfsexplorer-node
+    volumes:
+      - ./:/var/www
+    working_dir: /var/www
+    entrypoint: ['npm']
 networks:
   ipfsexplorer:
     driver: bridge
