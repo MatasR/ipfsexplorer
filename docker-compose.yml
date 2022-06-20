@@ -48,6 +48,8 @@ services:
       - ./:/var/www
     working_dir: /var/www
     entrypoint: ['npm']
+    networks:
+      - ipfsexplorer
 networks:
   ipfsexplorer:
     driver: bridge
