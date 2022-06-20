@@ -52,6 +52,14 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     networks:
       - ipfsexplorer
+  npm:
+    image: node:16
+    working_dir: /var/www/
+    entrypoint: ["npm"]
+    volumes:
+      - ./:/var/www
+    networks:
+      - ipfsexplorer
 networks:
   ipfsexplorer:
     driver: bridge
