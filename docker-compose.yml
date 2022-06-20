@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  app:
+  php:
     build:
       args:
         user: matas
@@ -8,14 +8,14 @@ services:
       context: ./
       dockerfile: Dockerfile
     image: ipfsexplorer
-    container_name: ipfsexplorer-app
+    container_name: ipfsexplorer-php
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
       - ./:/var/www
     networks:
       - ipfsexplorer
-  db:
+  mysql:
     image: mysql:8.0
     container_name: ipfsexplorer-db
     restart: unless-stopped
@@ -44,7 +44,7 @@ services:
     restart: unless-stopped
     container_name: ipfsexplorer-phpmyadmin
     depends_on:
-      - db
+      - mysql
     ports:
       - "8081:80"
     environment:
