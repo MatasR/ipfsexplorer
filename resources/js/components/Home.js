@@ -51,7 +51,7 @@ function Home() {
       <section id="view" className="my-3 p-3 bg-white rounded shadow-sm">
         <h3>View</h3>
         <label className="form-label">Enter file hash to view it:</label><br/>
-        <input className="form-control" type="text" onChange={handleHashChange} onBlur={handleHashChange} />
+        <input className="form-control" type="text" onChange={handleHashChange} />
       </section>
 
       <section id="upload" className="my-3 p-3 bg-white rounded shadow-sm">

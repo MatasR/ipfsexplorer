@@ -48,7 +48,8 @@ function File() {
   if(loading)
     return (<>Loading...</>);
   else{
-    return (<object data={fileURL} type={fileType} style={{ display: 'block', width: '100%', minHeight: '100%' }} />);
+    // return (<object data={fileURL} type={fileType} style={{ display: 'block', width: '100%', minHeight: '100%' }} />);
+    return (<object data={fileURL} type={fileType} />);
   }
 }
 export default File;
