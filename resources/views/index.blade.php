@@ -17,6 +17,7 @@
       gtag('config', 'G-WC4SWFJ1FN');
     </script>
 
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}" defer></script>
   </head>
   <body style="background-color:#f8f9fa;">

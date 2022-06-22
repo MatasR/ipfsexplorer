@@ -4,13 +4,21 @@ import { create } from 'ipfs-http-client';
 function Home() {
   const [uploading, setUploading] = useState(0);
   const [uploadedFileHash, setUploadedFileHash] = useState(0);
+  const [viewHash, setViewHash] = useState();
 
   // Entering file hash to view it
   function handleHashChange(event) {
     let hash = event.target.value;
 
-    if(hash.length === 46)
-      window.open('/ipfs/'+hash);
+    setViewHash(hash);
+  }
+
+  // Submiting hash to view file
+  function handleHashSubmit() {
+    if(viewHash.length === 46)
+      window.open('/ipfs/'+viewHash);
+    else
+      alert('Wrong file hash provided');
   }
 
   // Uploading new file
@@ -51,7 +59,10 @@ function Home() {
       <section id="view" className="my-3 p-3 bg-white rounded shadow-sm">
         <h3>View</h3>
         <label className="form-label">Enter file hash to view it:</label><br/>
-        <input className="form-control" type="text" onChange={handleHashChange} />
+        <div className="input-group">
+          <input className="form-control" type="text" onChange={handleHashChange} />
+          <button onClick={handleHashSubmit} className="btn btn-indigo">View</button>
+        </div>
       </section>
 
       <section id="upload" className="my-3 p-3 bg-white rounded shadow-sm">

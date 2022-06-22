@@ -3328,10 +3328,17 @@ function File() {
   if (loading) return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
     children: "Loading..."
   });else {
-    // return (<object data={fileURL} type={fileType} style={{ display: 'block', width: '100%', minHeight: '100%' }} />);
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("object", {
+    if (fileType.split('/')[0] == 'image') return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("object", {
       data: fileURL,
       type: fileType
+    });else return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("object", {
+      data: fileURL,
+      type: fileType,
+      style: {
+        display: 'block',
+        width: '100%',
+        minHeight: '100%'
+      }
     });
   }
 }
@@ -3391,12 +3398,22 @@ function Home() {
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState4 = _slicedToArray(_useState3, 2),
       uploadedFileHash = _useState4[0],
-      setUploadedFileHash = _useState4[1]; // Entering file hash to view it
+      setUploadedFileHash = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      viewHash = _useState6[0],
+      setViewHash = _useState6[1]; // Entering file hash to view it
 
 
   function handleHashChange(event) {
     var hash = event.target.value;
-    if (hash.length === 46) window.open('/ipfs/' + hash);
+    setViewHash(hash);
+  } // Submiting hash to view file
+
+
+  function handleHashSubmit() {
+    if (viewHash.length === 46) window.open('/ipfs/' + viewHash);else alert('Wrong file hash provided');
   } // Uploading new file
 
 
@@ -3459,10 +3476,17 @@ function Home() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
         className: "form-label",
         children: "Enter file hash to view it:"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        className: "form-control",
-        type: "text",
-        onChange: handleHashChange
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "input-group",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          className: "form-control",
+          type: "text",
+          onChange: handleHashChange
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+          onClick: handleHashSubmit,
+          className: "btn btn-indigo",
+          children: "View"
+        })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("section", {
       id: "upload",
