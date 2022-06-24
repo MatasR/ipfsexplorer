@@ -15,10 +15,12 @@ function Home() {
 
   // Submiting hash to view file
   function handleHashSubmit() {
-    if(viewHash.length === 46)
-      window.open('/ipfs/'+viewHash);
-    else
-      alert('Wrong file hash provided');
+    // Allow for more difficult hash provided
+    window.open('/ipfs/'+viewHash);
+    // if(viewHash.length === 46)
+    //   window.open('/ipfs/'+viewHash);
+    // else
+    //   alert('Wrong file hash provided');
   }
 
   // Uploading new file
