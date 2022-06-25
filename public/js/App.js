@@ -3230,7 +3230,7 @@ function File() {
           switch (_context.prev = _context.next) {
             case 0:
               if (!(CID.length === 46)) {
-                _context.next = 42;
+                _context.next = 43;
                 break;
               }
 
@@ -3308,6 +3308,7 @@ function File() {
               _fileType = (_fileType2 = _fileType) !== null && _fileType2 !== void 0 ? _fileType2 : {
                 mime: 'text/plain'
               };
+              console.log(_fileType);
               blobWithType = new Blob(chunks, {
                 type: _fileType.mime
               });
@@ -3321,7 +3322,7 @@ function File() {
               setFileType(_fileType.mime);
               setLoading(0);
 
-            case 42:
+            case 43:
             case "end":
               return _context.stop();
           }
@@ -3336,7 +3337,18 @@ function File() {
   });else {
     if (fileType.split('/')[0] == 'image') return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("object", {
       data: fileURL,
-      type: fileType
+      type: fileType,
+      style: {
+        display: 'block'
+      }
+    });else if (fileType.split('/')[1] == 'pdf') return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("object", {
+      data: fileURL,
+      type: fileType,
+      style: {
+        display: 'block',
+        width: '100%',
+        minHeight: '100%'
+      }
     });else return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("object", {
       data: fileURL,
       type: fileType,

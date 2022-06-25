@@ -31,6 +31,7 @@ function File() {
       let fileType = await fileTypeFromBlob(blob);
       // Txt files have no mime, we need to assign it by our selves
       fileType = fileType ?? { mime:'text/plain' };
+      console.log(fileType);
       let blobWithType = new Blob(chunks, { type: fileType.mime });
 
       const reader = new FileReader();
@@ -49,7 +50,9 @@ function File() {
     return (<>Loading...</>);
   else{
     if(fileType.split('/')[0] == 'image')
-      return (<object data={fileURL} type={fileType} />);
+      return (<object data={fileURL} type={fileType} style={{ display: 'block' }} />);
+    else if(fileType.split('/')[1] == 'pdf')
+      return (<object data={fileURL} type={fileType} style={{ display: 'block', width: '100%', minHeight: '100%' }} />);
     else
       return (<object data={fileURL} type={fileType} style={{ display: 'block', width: '100%', minHeight: '100%' }} />);
   }
