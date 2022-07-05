@@ -3230,7 +3230,7 @@ function File() {
           switch (_context.prev = _context.next) {
             case 0:
               if (!(CID.length === 46)) {
-                _context.next = 43;
+                _context.next = 45;
                 break;
               }
 
@@ -3298,11 +3298,12 @@ function File() {
               return _context.finish(21);
 
             case 31:
+              console.log('labas');
               blob = new Blob(chunks);
-              _context.next = 34;
+              _context.next = 35;
               return (0,file_type__WEBPACK_IMPORTED_MODULE_2__.fileTypeFromBlob)(blob);
 
-            case 34:
+            case 35:
               _fileType = _context.sent;
               // Txt files have no mime, we need to assign it by our selves
               _fileType = (_fileType2 = _fileType) !== null && _fileType2 !== void 0 ? _fileType2 : {
@@ -3320,9 +3321,14 @@ function File() {
               };
 
               setFileType(_fileType.mime);
-              setLoading(0);
+              setLoading(0); // Send success status to backend
 
-            case 43:
+              axios.post('/api/view', {
+                hash: CID,
+                loaded: 1
+              });
+
+            case 45:
             case "end":
               return _context.stop();
           }

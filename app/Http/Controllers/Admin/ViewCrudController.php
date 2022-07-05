@@ -40,6 +40,7 @@ class ViewCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('hash')->type('textarea');
+        CRUD::column('loaded')->type('boolean');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:

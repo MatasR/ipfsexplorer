@@ -8,6 +8,6 @@ class View extends Model
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
 
-    protected $fillable = ['hash'];
+    protected $fillable = ['hash', 'loaded'];
 
 }

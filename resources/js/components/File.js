@@ -27,6 +27,8 @@ function File() {
       for await (const chunk of ipfs.cat(CID))
         chunks.push(chunk);
 
+      console.log('labas');
+
       let blob = new Blob(chunks);
       let fileType = await fileTypeFromBlob(blob);
       // Txt files have no mime, we need to assign it by our selves
@@ -43,6 +45,12 @@ function File() {
 
       setFileType(fileType.mime);
       setLoading(0);
+
+      // Send success status to backend
+      axios.post('/api/view', {
+        hash: CID,
+        loaded: 1
+      });
     }
   }
 
