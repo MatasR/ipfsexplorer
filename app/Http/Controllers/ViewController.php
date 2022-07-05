@@ -10,7 +10,8 @@ class ViewController extends Controller
 
     public function store(Request $request)
     {
-        $file = View::create(['hash' => $request->hash]);
+        // $file = View::create(['hash' => $request->hash]);
+        $file = View::updateOrCreate(['hash' => $request->hash]);
     }
 
 }
