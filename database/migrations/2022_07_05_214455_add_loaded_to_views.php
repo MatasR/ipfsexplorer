@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('views', function (Blueprint $table) {
-            $table->integer('loaded')->default(0);
+            $table->integer('loaded')->default(0)->after('hash');
         });
     }
 
