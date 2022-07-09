@@ -13,6 +13,12 @@ class DashboardComposer
         $viewsLoaded = $views->where('loaded')->count();
         $rate = number_format($viewsLoaded / $views->count() * 100, 2);
 
-        $view->with(['count' => $viewsLoaded, 'rate' => $rate]);
+        $view->with([
+          'count' => [
+            'all' => $views->count(),
+            'loaded' => $viewsLoaded
+          ],
+          'rate' => $rate
+        ]);
     }
 }

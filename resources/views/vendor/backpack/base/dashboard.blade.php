@@ -7,7 +7,7 @@
         'value'       => $rate.'%',
         'description' => 'Load success rate',
         'progress'    => $rate,
-        'hint'        => $count.' Files were loaded successfully'
+        'hint'        => $count['all'].' out of '.$count['loaded'].' files were loaded successfully'
     ];
 @endphp
 
