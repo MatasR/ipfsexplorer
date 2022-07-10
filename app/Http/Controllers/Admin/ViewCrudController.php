@@ -42,6 +42,8 @@ class ViewCrudController extends CrudController
         CRUD::column('hash')->type('textarea');
         CRUD::column('loaded')->type('boolean');
 
+        $this->crud->addButtonFromModelFunction('line', 'preview', 'openPreview', 'beginning');
+
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
