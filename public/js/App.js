@@ -3223,14 +3223,27 @@ function File() {
 
   function _previewFile() {
     _previewFile = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var _fileType2, ipfs, chunks, _iteratorAbruptCompletion, _didIteratorError, _iteratorError, _iterator, _step, chunk, blob, _fileType, blobWithType, reader;
+      var url, _fileType2, ipfs, chunks, _iteratorAbruptCompletion, _didIteratorError, _iteratorError, _iterator, _step, chunk, blob, _fileType, blobWithType, reader;
 
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              // CIDv1
+              if (CID.substr(0, 4) == 'bafy') {
+                url = 'https://' + CID + '.ipfs.infura-ipfs.io';
+                setFileURL(url);
+                setLoading(0); // Send success status to backend
+
+                axios.post('/api/view', {
+                  hash: CID,
+                  loaded: 1
+                });
+              } // CIDv0
+
+
               if (!(CID.length === 46)) {
-                _context.next = 45;
+                _context.next = 44;
                 break;
               }
 
@@ -3238,67 +3251,66 @@ function File() {
               chunks = [];
               _iteratorAbruptCompletion = false;
               _didIteratorError = false;
-              _context.prev = 5;
+              _context.prev = 6;
               _iterator = _asyncIterator(ipfs.cat(CID));
 
-            case 7:
-              _context.next = 9;
+            case 8:
+              _context.next = 10;
               return _iterator.next();
 
-            case 9:
+            case 10:
               if (!(_iteratorAbruptCompletion = !(_step = _context.sent).done)) {
-                _context.next = 15;
+                _context.next = 16;
                 break;
               }
 
               chunk = _step.value;
               chunks.push(chunk);
 
-            case 12:
+            case 13:
               _iteratorAbruptCompletion = false;
-              _context.next = 7;
+              _context.next = 8;
               break;
 
-            case 15:
-              _context.next = 21;
+            case 16:
+              _context.next = 22;
               break;
 
-            case 17:
-              _context.prev = 17;
-              _context.t0 = _context["catch"](5);
+            case 18:
+              _context.prev = 18;
+              _context.t0 = _context["catch"](6);
               _didIteratorError = true;
               _iteratorError = _context.t0;
 
-            case 21:
-              _context.prev = 21;
+            case 22:
               _context.prev = 22;
+              _context.prev = 23;
 
               if (!(_iteratorAbruptCompletion && _iterator["return"] != null)) {
-                _context.next = 26;
+                _context.next = 27;
                 break;
               }
 
-              _context.next = 26;
+              _context.next = 27;
               return _iterator["return"]();
 
-            case 26:
-              _context.prev = 26;
+            case 27:
+              _context.prev = 27;
 
               if (!_didIteratorError) {
-                _context.next = 29;
+                _context.next = 30;
                 break;
               }
 
               throw _iteratorError;
 
-            case 29:
-              return _context.finish(26);
-
             case 30:
-              return _context.finish(21);
+              return _context.finish(27);
 
             case 31:
-              console.log('labas');
+              return _context.finish(22);
+
+            case 32:
               blob = new Blob(chunks);
               _context.next = 35;
               return (0,file_type__WEBPACK_IMPORTED_MODULE_2__.fileTypeFromBlob)(blob);
@@ -3309,7 +3321,6 @@ function File() {
               _fileType = (_fileType2 = _fileType) !== null && _fileType2 !== void 0 ? _fileType2 : {
                 mime: 'text/plain'
               };
-              console.log(_fileType);
               blobWithType = new Blob(chunks, {
                 type: _fileType.mime
               });
@@ -3328,12 +3339,12 @@ function File() {
                 loaded: 1
               });
 
-            case 45:
+            case 44:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[5, 17, 21, 31], [22,, 26, 30]]);
+      }, _callee, null, [[6, 18, 22, 32], [23,, 27, 31]]);
     }));
     return _previewFile.apply(this, arguments);
   }
@@ -3341,29 +3352,38 @@ function File() {
   if (loading) return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
     children: "Loading..."
   });else {
-    if (fileType.split('/')[0] == 'image') return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("object", {
+    if (fileType == null) return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("object", {
       data: fileURL,
-      type: fileType,
-      style: {
-        display: 'block'
-      }
-    });else if (fileType.split('/')[1] == 'pdf') return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("object", {
-      data: fileURL,
-      type: fileType,
       style: {
         display: 'block',
         width: '100%',
         minHeight: '100%'
       }
-    });else return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("object", {
-      data: fileURL,
-      type: fileType,
-      style: {
-        display: 'block',
-        width: '100%',
-        minHeight: '100%'
-      }
-    });
+    });else {
+      if (fileType.split('/')[0] == 'image') return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("object", {
+        data: fileURL,
+        type: fileType,
+        style: {
+          display: 'block'
+        }
+      });else if (fileType.split('/')[1] == 'pdf') return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("object", {
+        data: fileURL,
+        type: fileType,
+        style: {
+          display: 'block',
+          width: '100%',
+          minHeight: '100%'
+        }
+      });else return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("object", {
+        data: fileURL,
+        type: fileType,
+        style: {
+          display: 'block',
+          width: '100%',
+          minHeight: '100%'
+        }
+      });
+    }
   }
 }
 
