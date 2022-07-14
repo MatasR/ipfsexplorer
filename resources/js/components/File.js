@@ -21,7 +21,7 @@ function File() {
 
   async function previewFile() {
     // CIDv1
-    if(CID.substr(0, 4) == 'bafy'){
+    if(CID.substr(0, 2) == 'ba'){
 
       const url = 'https://'+CID+'.ipfs.infura-ipfs.io';
 
